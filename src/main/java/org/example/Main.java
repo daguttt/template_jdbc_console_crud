@@ -41,6 +41,7 @@ public class Main {
 
                     0. Salir.
                     1. Pedir fecha.
+                    2. Pedir opción de la lista.
 
                     ************************************************
                     """;
@@ -50,9 +51,8 @@ public class Main {
 
             switch (option) {
                 case "0" -> isMenuOpened = false;
-                case "1" -> {
-                    runFirstOption();
-                }
+                case "1" -> runFirstOption();
+                case "2" -> requestOptionFromStringArray();
                 default -> JOptionPane.showMessageDialog(null, "Opción inválida. Inténtalo de nuevo");
             }
         }
@@ -61,5 +61,16 @@ public class Main {
     public static void runFirstOption() {
         var emptyDate = InputRequester.requestLocalDate("Ingresa la fecha (Presiona ENTER para omitir)",  true);
         System.out.println(emptyDate.isEmpty() ? "Está vacia": Date.valueOf(emptyDate.get()));
+    }
+
+    public static void requestOptionFromStringArray() {
+        var options = new String[] {
+                "Manzana",
+                "Pera",
+                "Banano"
+        };
+        int choseOptionIndex = InputRequester.requestAnIndexFrom(options, "Ingresa el número de la fruta a seleccionar");
+        var chosenOption = options[choseOptionIndex];
+        System.out.println(chosenOption);
     }
 }

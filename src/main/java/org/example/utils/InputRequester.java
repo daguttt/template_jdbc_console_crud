@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class InputRequester {
@@ -131,7 +133,6 @@ public class InputRequester {
     }
 
     // Double
-
     public static Optional<Double> requestDouble(String prompt, String invalidInputMessage) {
         return requestDouble(prompt, invalidInputMessage, false);
     }
@@ -157,4 +158,26 @@ public class InputRequester {
         }
     }
 
+    // Index from a string list
+    public static int requestAnIndexFrom(String[] optionsArray, String prompt) {
+        return requestAnIndexFrom(optionsArray, prompt, "Número de opción inválida. Inténtalo de nuevo");
+    }
+
+    public static int requestAnIndexFrom(String[] optionsArray, String prompt, String invalidInputMessage) {
+        var formattedOptions = new ArrayList<String>();
+        for (int i = 0; i < optionsArray.length; i++) {
+            String option = optionsArray[i];
+            var listedOption = String.format("%d. %s", i + 1, option);
+            formattedOptions.add(listedOption);
+        }
+
+        while (true) {
+            var chosenOption = requestInteger(prompt + "\n" + String.join("\n", formattedOptions));
+            if (chosenOption.isEmpty()) return -1;
+
+            boolean isValidOption = chosenOption.get() > 0 && chosenOption.get() <= optionsArray.length;
+            if (isValidOption) return chosenOption.get() - 1;
+            JOptionPane.showMessageDialog(null, invalidInputMessage, DEFAULT_INVALID_INPUT_PANE_TITLE, JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }
