@@ -35,7 +35,7 @@ public class Main {
         // Menu
         boolean isMenuOpened = true;
         while (isMenuOpened) {
-            var menuOptionsMessage = """
+            String menuOptionsMessage = """
                     ********************* Menu *********************
 
                     Ingresa la opción que deseas hacer:
