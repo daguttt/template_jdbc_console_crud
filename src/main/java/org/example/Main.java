@@ -5,6 +5,7 @@ import org.example.utils.InputRequester;
 
 import javax.swing.*;
 import java.sql.Date;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -59,18 +60,14 @@ public class Main {
     }
 
     public static void runFirstOption() {
-        var emptyDate = InputRequester.requestLocalDate("Ingresa la fecha (Presiona ENTER para omitir)",  true);
-        System.out.println(emptyDate.isEmpty() ? "Está vacia": Date.valueOf(emptyDate.get()));
+        var emptyDate = InputRequester.requestLocalDate("Ingresa la fecha (Presiona ENTER para omitir)", true);
+        System.out.println(emptyDate.isEmpty() ? "Está vacia" : Date.valueOf(emptyDate.get()));
     }
 
     public static void requestOptionFromStringArray() {
-        var options = new String[] {
-                "Manzana",
-                "Pera",
-                "Banano"
-        };
+        var options = List.of("Manzana", "Pera", "Banano");
         int choseOptionIndex = InputRequester.requestAnIndexFrom(options, "Ingresa el número de la fruta a seleccionar");
-        var chosenOption = options[choseOptionIndex];
+        var chosenOption = options.get(choseOptionIndex);
         System.out.println(chosenOption);
     }
 }

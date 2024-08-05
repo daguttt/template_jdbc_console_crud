@@ -28,11 +28,11 @@ public class InputRequester {
             if (allowEmpty) return trimmedInput;
 
             if (!trimmedInput.isEmpty()) return trimmedInput;
-            
+
             JOptionPane.showMessageDialog(null, invalidInputMessage, DEFAULT_INVALID_INPUT_PANE_TITLE, JOptionPane.WARNING_MESSAGE);
         }
     }
-    
+
     // LocalDate
     public static Optional<LocalDate> requestLocalDate(String prompt) {
         return requestLocalDate(prompt, "Formato de fecha inválido. Inténtalo de nuevo", false);
@@ -159,14 +159,14 @@ public class InputRequester {
     }
 
     // Index from a string list
-    public static int requestAnIndexFrom(String[] optionsArray, String prompt) {
-        return requestAnIndexFrom(optionsArray, prompt, "Número de opción inválida. Inténtalo de nuevo");
+    public static int requestAnIndexFrom(List<String> optionsList, String prompt) {
+        return requestAnIndexFrom(optionsList, prompt, "Número de opción inválida. Inténtalo de nuevo");
     }
 
-    public static int requestAnIndexFrom(String[] optionsArray, String prompt, String invalidInputMessage) {
+    public static int requestAnIndexFrom(List<String> optionsList, String prompt, String invalidInputMessage) {
         var formattedOptions = new ArrayList<String>();
-        for (int i = 0; i < optionsArray.length; i++) {
-            String option = optionsArray[i];
+        for (int i = 0; i < optionsList.size(); i++) {
+            String option = optionsList.get(i);
             var listedOption = String.format("%d. %s", i + 1, option);
             formattedOptions.add(listedOption);
         }
@@ -175,7 +175,7 @@ public class InputRequester {
             var chosenOption = requestInteger(prompt + "\n" + String.join("\n", formattedOptions));
             if (chosenOption.isEmpty()) return -1;
 
-            boolean isValidOption = chosenOption.get() > 0 && chosenOption.get() <= optionsArray.length;
+            boolean isValidOption = chosenOption.get() > 0 && chosenOption.get() <= optionsList.size();
             if (isValidOption) return chosenOption.get() - 1;
             JOptionPane.showMessageDialog(null, invalidInputMessage, DEFAULT_INVALID_INPUT_PANE_TITLE, JOptionPane.WARNING_MESSAGE);
         }
